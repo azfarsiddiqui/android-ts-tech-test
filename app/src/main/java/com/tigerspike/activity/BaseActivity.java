@@ -25,7 +25,7 @@ public class BaseActivity extends ActionBarActivity {
 
     protected void hideLoading() {
 
-        mProgressDialog.hide();
+        mProgressDialog.dismiss();
     }
 
     @Override

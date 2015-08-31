@@ -46,37 +46,49 @@ public class SolutionListAdapter extends BaseAdapter {
     @Override
     public View getView(int position, View convertView, ViewGroup parent) {
 
+        ViewHolder viewHolder;
+
         Solution solution = (Solution) getItem(position);
 
         if (convertView == null) {
             LayoutInflater layoutInflater = (LayoutInflater) mContext.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
             convertView = layoutInflater.inflate(R.layout.list_item_solution, parent, false);
+            viewHolder = new ViewHolder();
+            viewHolder.txtTitle = (TextView) convertView.findViewById(R.id.txt_title);
+            viewHolder.txtDescription = (TextView) convertView.findViewById(R.id.txt_description);
+            viewHolder.imageView = (NetworkImageView) convertView.findViewById(R.id.img_thumbnail);
+            convertView.setTag(viewHolder);
+        }
+        else {
+            viewHolder = (ViewHolder) convertView.getTag();
         }
 
-        return updateViewForSolution(convertView, solution);
+        updateViewForSolution(viewHolder, solution);
+
+        return convertView;
     }
 
-    private View updateViewForSolution(View view, Solution solution) {
+    private void updateViewForSolution(ViewHolder viewHolder, Solution solution) {
 
-        TextView txtTitle = (TextView) view.findViewById(R.id.txt_title);
-        TextView txtDescription = (TextView) view.findViewById(R.id.txt_description);
-        NetworkImageView imageView = (NetworkImageView) view.findViewById(R.id.img_thumbnail);
-
-        txtTitle.setText(solution.getTitle());
-        txtDescription.setText(solution.getDescription());
+        viewHolder.txtTitle.setText(solution.getTitle());
+        viewHolder.txtDescription.setText(solution.getDescription());
 
         String imageUrl = solution.getImageUrl();
 
         //Only show the ImageView when we have a image url
         //Also set a default image to show when loading is in progress
         if (imageUrl != null && imageUrl.length() > 0) {
-            imageView.setDefaultImageResId(R.mipmap.ic_launcher);
-            imageView.setVisibility(View.VISIBLE);
-            imageView.setImageUrl(imageUrl, VolleyManager.getInstance().getImageLoader());
+            viewHolder.imageView.setVisibility(View.VISIBLE);
+            viewHolder.imageView.setImageUrl(imageUrl, VolleyManager.getInstance().getImageLoader());
         } else {
-            imageView.setVisibility(View.GONE);
+            viewHolder.imageView.setVisibility(View.GONE);
         }
+    }
 
-        return view;
+    static class ViewHolder {
+
+        TextView txtTitle;
+        TextView txtDescription;
+        NetworkImageView imageView;
     }
 }

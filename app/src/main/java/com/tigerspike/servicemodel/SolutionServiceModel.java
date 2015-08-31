@@ -1,11 +1,10 @@
 package com.tigerspike.servicemodel;
 
-import com.tigerspike.entity.SolutionsWrapper;
-import com.tigerspike.listener.SolutionServiceModelListener;
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
+import com.tigerspike.entity.SolutionsWrapper;
+import com.tigerspike.listener.SolutionServiceModelListener;
 
-import org.json.JSONException;
 import org.json.JSONObject;
 
 public class SolutionServiceModel extends BaseServiceModel {
@@ -19,30 +18,23 @@ public class SolutionServiceModel extends BaseServiceModel {
 
     public void fetchAllSolutions() {
 
-        super.get("", new Response.Listener<String>() {
-                    @Override
-                    public void onResponse(String json) {
+        super.get("", new Response.Listener<JSONObject>() {
+                @Override
+                public void onResponse(JSONObject jsonObject) {
 
-                        try {
-                            JSONObject solutionsWrapperJsonObject = new JSONObject(json);
-                            SolutionsWrapper solutionsWrapperObject = new SolutionsWrapper();
-                            solutionsWrapperObject.deserialize(solutionsWrapperJsonObject);
+                    SolutionsWrapper solutionsWrapperObject = new SolutionsWrapper();
+                    solutionsWrapperObject.deserialize(jsonObject);
 
-                            mSolutionServiceModelListener.onSolutionsFetchSuccess(solutionsWrapperObject);
-
-                        } catch (JSONException e) {
-
-                            mSolutionServiceModelListener.onSolutionsFetchError(e.getMessage());
-                        }
-                    }
-                },
-                new Response.ErrorListener() {
-                    @Override
-                    public void onErrorResponse(VolleyError volleyError) {
-
-                        mSolutionServiceModelListener.onSolutionsFetchError(volleyError.getMessage());
-                    }
+                    mSolutionServiceModelListener.onSolutionsFetchSuccess(solutionsWrapperObject);
                 }
+            },
+            new Response.ErrorListener() {
+                @Override
+                public void onErrorResponse(VolleyError volleyError) {
+
+                    mSolutionServiceModelListener.onSolutionsFetchError(volleyError.getMessage());
+                }
+            }
         );
     }
 

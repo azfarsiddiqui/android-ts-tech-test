@@ -1,9 +1,11 @@
 package com.tigerspike.servicemodel;
 
+import com.android.volley.Response;
+import com.android.volley.toolbox.JsonObjectRequest;
 import com.tigerspike.constant.APIConstants;
 import com.tigerspike.network.VolleyManager;
-import com.android.volley.Response;
-import com.android.volley.toolbox.StringRequest;
+
+import org.json.JSONObject;
 
 public abstract class BaseServiceModel {
 
@@ -12,10 +14,10 @@ public abstract class BaseServiceModel {
         return APIConstants.API_BASE_URL + method;
     }
 
-    protected void get(String apiMethod, Response.Listener<String> successListener, Response.ErrorListener errorListener) {
+    protected void get(String apiMethod, Response.Listener<JSONObject> successListener, Response.ErrorListener errorListener) {
 
         String url = getCompleteUrl(apiMethod);
-        StringRequest request = new StringRequest(url, successListener, errorListener);
+        JsonObjectRequest request = new JsonObjectRequest(url, null, successListener, errorListener);
         request.setShouldCache(false);
         
         VolleyManager.getInstance().getRequestQueue().add(request);

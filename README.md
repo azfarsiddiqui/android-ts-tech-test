@@ -5,7 +5,7 @@
 <br /><b>SolutionDetailActivity</b> - Displays the detail of a 'solution' item by opening its detail url in a WebView.
 <br /><br />
 <h2>External Libraries Used</h2>
-<b>Volley</b> - Volley is being used to manage HTTP requests.
+<b>Volley</b> - Volley is being used to manage HTTP requests & Asynchronous image loading.
 <br /><br />
 <h2>Possible Enhancements</h2>
 <b>Image load error</b> - Show an error image if an image fails to load OR give a tap to retry feature.

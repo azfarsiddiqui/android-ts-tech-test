@@ -1,4 +1,9 @@
 <resources>
     <string name="app_name">TigerSpike App.</string>
     <string name="network_error">There was a problem getting data right now. Please try again by swipe gesture.</string>
+    <string name="loading">Loading..</string>
+    <string name="title_activity_solution_detail">SolutionDetailActivity</string>
+
+    <string name="hello_world">Hello world!</string>
+    <string name="action_settings">Settings</string>
 </resources>

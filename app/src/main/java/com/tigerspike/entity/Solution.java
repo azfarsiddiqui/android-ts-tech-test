@@ -4,7 +4,9 @@ import com.tigerspike.helper.JsonHelper;
 
 import org.json.JSONObject;
 
-public class Solution extends BaseServiceEntity {
+import java.io.Serializable;
+
+public class Solution extends BaseServiceEntity implements Serializable {
 
     private static final String KEY_JSON_TITLE = "name";
     private static final String KEY_JSON_DESCRIPTION = "description";
